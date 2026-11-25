@@ -6,10 +6,9 @@ license = "MIT"
 publish = false
 
 [dependencies]
-# Innertube client for YouTube Music: search, player, stream URLs.
+# Innertube client for YouTube Music metadata (search, albums, playlists).
+# Streams come from yt-dlp instead; see src/player.rs.
 rustypipe = "0.11.4"
-# Same reqwest major as rustypipe, so the HTTP stack is shared.
-reqwest = "0.12"
 tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
 # Audio output and AAC/m4a decoding only; nothing else is needed yet.
 rodio = { version = "0.23", default-features = false, features = ["playback", "mp4"] }
