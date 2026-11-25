@@ -149,14 +149,12 @@ impl Seek for StreamReader {
         let target = match to {
             SeekFrom::Start(n) => Some(n),
             SeekFrom::Current(d) => self.pos.checked_add_signed(d),
-            SeekFrom::End(d) => {
-                // The end is only known once the download finishes.
-                let shared = &self.download.shared;
-                let state = shared
-                    .grew
-                    .wait_while(shared.state.lock().unwrap(), |s| !s.done)
-                    .unwrap();
-                (state.data.len() as u64).checked_add_signed(d)
+            // The decoder is non-seekable, so it never asks for the end.
+            SeekFrom::End(_) => {
+                return Err(io::Error::new(
+                    io::ErrorKind::Unsupported,
+                    "the end of a download in progress is unknown",
+                ));
             }
         };
         self.pos = target
@@ -284,22 +282,6 @@ mod tests {
         reader.read_exact(&mut buf).unwrap();
         assert_eq!(&buf, b"23");
         assert!(reader.seek(SeekFrom::Current(-10)).is_err());
-    }
-
-    #[test]
-    fn seek_from_end_waits_for_the_download_to_finish() {
-        let (tx, download) = channel_download();
-        let mut reader = download.reader();
-        tx.send(Ok(b"abc".to_vec())).unwrap();
-        let waiting = thread::spawn(move || reader.seek(SeekFrom::End(-1)).unwrap());
-        thread::sleep(Duration::from_millis(50));
-        assert!(
-            !waiting.is_finished(),
-            "seek returned before the end was known"
-        );
-        tx.send(Ok(b"def".to_vec())).unwrap();
-        drop(tx);
-        assert_eq!(waiting.join().unwrap(), 5);
     }
 
     #[test]
