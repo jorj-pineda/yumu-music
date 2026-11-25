@@ -88,6 +88,10 @@ its ideas, not its assets: never copy its icon, artwork or screens.
   agent or model. The maintainer is the sole author in history. Say which
   model and harness helped at the end of the pull request description
   instead.
+- **Review with sol-loop before pushing.** Run `/sol-loop` on every change
+  and push only after Sol approves. End the pull request description with a
+  line such as `Reviewed with sol-loop: 2 rounds with <model>. Sol verdict:
+  approved`, followed by the model and harness that wrote it.
 - **Ask before big decisions**: architecture, new runtime dependencies,
   licensing, platform scope, anything touching history, or anything in the
   roadmap's "Decisions" list. Small, clearly scoped choices do not need asking.
@@ -99,8 +103,8 @@ Run before pushing:
 
 ```sh
 cargo fmt --check
-cargo clippy --all-targets -- -D warnings
-cargo test
+cargo clippy --all-targets --locked -- -D warnings
+cargo test --locked
 ```
 
 Do not weaken a lint, delete a test, or add an `allow` just to get green
