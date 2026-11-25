@@ -2867,7 +2867,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "ytmus_app"
+name = "yumu"
 version = "0.1.0"
 dependencies = [
  "reqwest",

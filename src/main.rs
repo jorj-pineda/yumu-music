@@ -17,7 +17,7 @@ const CHUNK: u64 = 4 * 1024 * 1024;
 async fn main() -> Result<(), Box<dyn Error>> {
     let query = std::env::args().skip(1).collect::<Vec<_>>().join(" ");
     if query.is_empty() {
-        eprintln!("usage: ytmus_app <search terms>");
+        eprintln!("usage: yumu <search terms>");
         std::process::exit(2);
     }
 
