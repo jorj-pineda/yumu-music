@@ -167,7 +167,14 @@ impl Seek for StreamReader {
 pub fn fetch(video_id: &str) -> Result<Download, PlayError> {
     let url = format!("https://music.youtube.com/watch?v={video_id}");
     let mut child = Command::new("yt-dlp")
-        .args(["--quiet", "--no-warnings", "--no-playlist"])
+        // Ignore the user's yt-dlp config: options like --simulate or --print
+        // would break the audio-on-stdout contract.
+        .args([
+            "--ignore-config",
+            "--quiet",
+            "--no-warnings",
+            "--no-playlist",
+        ])
         .args(["--format", AUDIO_FORMAT, "--output", "-", &url])
         .stdin(Stdio::null())
         .stdout(Stdio::piped())
