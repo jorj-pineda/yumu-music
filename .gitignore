@@ -1,3 +1,6 @@
 /target
 /cache
 /.tools
+
+# Maintainer's local plan; see AGENTS.md
+/roadmap.md
