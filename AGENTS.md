@@ -5,8 +5,9 @@ Rust. It is to YouTube Music what [Spotifast](https://github.com/crmne/spotifast
 is to Spotify: a real app with low memory and CPU use, instead of a browser tab
 or an Electron wrapper around the website.
 
-Status: early prototype. Search works; playback is being moved to yt-dlp (see
-"Where audio comes from" below). There is no interface yet.
+Status: early prototype. A command-line build searches with rustypipe and
+plays the top result through yt-dlp (`src/player.rs`). There is no interface
+yet.
 
 ## Read first
 
