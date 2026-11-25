@@ -28,7 +28,13 @@ async fn main() -> Result<(), Box<dyn Error>> {
     println!("search: {} ms", t.elapsed().as_millis());
     for (i, track) in results.items.items.iter().take(5).enumerate() {
         let artists: Vec<_> = track.artists.iter().map(|a| a.name.as_str()).collect();
-        println!("  {}. {} - {} [{}]", i + 1, artists.join(", "), track.name, track.id);
+        println!(
+            "  {}. {} - {} [{}]",
+            i + 1,
+            artists.join(", "),
+            track.name,
+            track.id
+        );
     }
     let track = results.items.items.first().ok_or("no results")?;
 
@@ -72,7 +78,11 @@ async fn main() -> Result<(), Box<dyn Error>> {
         bytes.extend_from_slice(&resp.bytes().await?);
         start = end + 1;
     }
-    println!("download: {} ms, {} KB", t.elapsed().as_millis(), bytes.len() / 1024);
+    println!(
+        "download: {} ms, {} KB",
+        t.elapsed().as_millis(),
+        bytes.len() / 1024
+    );
 
     let sink = rodio::DeviceSinkBuilder::open_default_sink()?;
     let out = rodio::Player::connect_new(sink.mixer());
