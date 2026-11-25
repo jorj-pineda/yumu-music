@@ -103,8 +103,8 @@ Run before pushing:
 
 ```sh
 cargo fmt --check
-cargo clippy --all-targets -- -D warnings
-cargo test
+cargo clippy --all-targets --locked -- -D warnings
+cargo test --locked
 ```
 
 Do not weaken a lint, delete a test, or add an `allow` just to get green
