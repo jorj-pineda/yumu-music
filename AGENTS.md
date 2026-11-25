@@ -110,6 +110,5 @@ honestly: say "compiled" when a platform was only compiled, not tested.
 
 ## Local files to leave alone
 
-- `cache/` holds rustypipe's state. `.tools/` holds the prototype's
-  rustypipe-botguard binary. Both are gitignored.
+- `cache/` holds rustypipe's state. It is gitignored.
 - Never put build output or large scratch files in `/tmp`.
