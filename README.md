@@ -8,12 +8,12 @@ spirit of [Spotifast](https://github.com/crmne/spotifast): low memory, near
 idle CPU, and an interface built for listening.
 
 > **Status: early prototype.** There is no interface yet. The current build is
-> a command-line test: search works, and playback is moving to `yt-dlp`.
+> a command-line test that searches and plays the top result.
 
 ## Try the prototype
 
-You need Rust. Playback will also need `yt-dlp` (`brew install yt-dlp` on
-macOS).
+You need Rust and `yt-dlp` (`brew install yt-dlp` on macOS, which also
+installs the Deno runtime yt-dlp needs).
 
 ```sh
 cargo run --release -- "artist song"
